@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UniFind - Smart Lost & Found for Students</title>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Updated to project purple: 0xFF771F98 -> #771F98 */
+            --primary-purple: #771F98;
+            /* lighter / darker variants derived from primary */
+            --light-purple: #9b60d1;
+            --dark-purple: #4f1373;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-gray: #6c757d;
+            --text-dark: #212529;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+            color: var(--text-dark);
+            background-color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            position: relative;
+            display: inline-block;
+        }
+
+        h2:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-purple);
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            background-color: var(--primary-purple);
+            color: var(--white);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .btn:hover {
+            background-color: var(--dark-purple);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(106, 75, 195, 0.2);
+        }
+
+        .btn i {
+            margin-left: 8px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2:after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 20px 0;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            padding: 15px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 24px; 
+            padding-left: 30px;
+        }
+
+        /* Make header container span full viewport width so logo/nav sit flush left */
+        header .container {
+            max-width: none;
+            padding-left: 0;
+            padding-right: 0;
+            width: 100%;
+            margin: 0;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-purple);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        /* Image logo sizing */
+        .logo-img {
+            display: inline-block;
+            height: 55px; 
+            width: auto;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .logo-img {
+                height: 40px; /* reduce on small screens */
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin-left: 0; /* ensure no extra left margin */
+        }
+
+        .nav-links li {
+            margin-left: 20px; /* tighten space between tabs (was 40px) */
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-purple);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-purple);
+            cursor: pointer;
+        }
+
+        /* *** FIX: base mobile-menu styles (hidden on desktop) *** */
+        .mobile-menu {
+            display: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 180px;
+            padding-bottom: 120px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero:before {
+            content: "";
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(
+                circle,
+                rgba(106, 75, 195, 0.08) 0%,
+                rgba(106, 75, 195, 0) 70%
+            );
+            top: -200px;
+            right: -200px;
+            z-index: 0;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+            gap: 80px; /* increased gap between text and images */
+        }
+
+        .hero-text {
+            flex: 0 0 45%; /* reduce text to 45% width */
+            max-width: 500px;
+        }
+
+        .hero-text h1 {
+            color: var(--text-dark);
+            margin-bottom: 60px;
+        }
+
+        .hero-image {
+            flex: 0 0 55%; /* increase images to 55% width */
+            display: flex;
+            justify-content: flex-end;
+            position: relative;
+            margin-left: 0; /* remove old margin */
+        }
+
+        /* container for the three screenshots */
+        .hero-screens {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px; /* space between phones */
+        }
+
+        /* base style for each screenshot */
+        .app-screenshot {
+    width: 200px; /* keep whatever size you like */
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    border: none;
+    background: transparent;
+}
+
+
+        /* responsive tweak for smaller screens */
+        @media (max-width: 992px) {
+            .hero-screens {
+                gap: 25px;
+            }
+
+            .app-screenshot {
+                width: 170px; /* decreased from 220px */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .hero-screens {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .app-screenshot {
+                width: 190px; /* decreased from 240px */
+            }
+        }
+
+
+        /* Features Section */
+        .features {
+            background-color: var(--white);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--medium-gray);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: rgba(106, 75, 195, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: var(--primary-purple);
+            font-size: 2rem;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            background-color: var(--light-gray);
+        }
+
+        .steps-container {
+            display: flex;
+            justify-content: space-between;
+            /* make rows stretch so items in each row get equal height */
+            align-items: stretch;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 250px;
+            margin: 0 15px 40px;
+            text-align: center;
+            position: relative;
+
+            /* make each step a column so its content can stretch */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .step-content {
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--medium-gray);
+
+            /* let the card body expand to match the tallest card in the row */
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary-purple);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0 auto 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Value Section */
+        .value-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .value-card {
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--medium-gray);
+            transition: var(--transition);
+        }
+
+        .value-card:hover {
+            border-color: var(--primary-purple);
+        }
+
+        .value-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            background-color: rgba(106, 75, 195, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px; /* center horizontally */
+            color: var(--primary-purple);
+            font-size: 1.5rem;
+        }
+
+        /* Team Section */
+        .team {
+            background-color: var(--light-gray);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .team-member {
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--medium-gray);
+            transition: var(--transition);
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .member-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: var(--medium-gray);
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-purple);
+            font-size: 3rem;
+        }
+
+        .member-name {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .member-role {
+            color: var(--primary-purple);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background-color: var(--white);
+        }
+
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 50px auto 0;
+            position: relative;
+        }
+
+        .testimonial {
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--medium-gray);
+            text-align: center;
+            transition: opacity 0.4s ease;
+        }
+
+        .testimonial-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary-purple);
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(
+                135deg,
+                var(--primary-purple) 0%,
+                var(--dark-purple) 100%
+            );
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .cta h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .cta h2:after {
+            background-color: white;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .cta p {
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .cta .btn {
+            background-color: white;
+            color: var(--primary-purple);
+        }
+
+        .cta .btn:hover {
+            background-color: var(--light-gray);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--white);
+            padding: 80px 0 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo i {
+            margin-right: 10px;
+        }
+
+        .footer-links h4 {
+            color: white;
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 15px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-purple);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+
+            h2 {
+                font-size: 2.2rem;
+            }
+
+            .hero-content {
+                flex-direction: column;
+                gap: 50px;
+            }
+
+            .hero-text {
+                flex: 1;
+                max-width: 100%;
+            }
+
+            .hero-image {
+                flex: 1;
+                justify-content: center;
+                margin-left: 0;
+            }
+
+            .phone-mockup {
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .mobile-menu {
+                display: block;
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                z-index: 999;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: var(--transition);
+            }
+
+            .mobile-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .mobile-menu ul {
+                list-style: none;
+            }
+
+            .mobile-menu li {
+                margin-bottom: 20px;
+            }
+
+            .mobile-menu a {
+                text-decoration: none;
+                color: var(--text-dark);
+                font-weight: 600;
+                font-size: 1.2rem;
+                display: block;
+                padding: 10px 0;
+            }
+
+            h1 {
+                font-size: 2.3rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#hero" class="logo">
+                    <img src="images/logo side by side_2.png" alt="UniFind logo" class="logo-img" />
+                </a>
+
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#value">Why UniFind</a></li>
+                    <li><a href="#team">Our Team</a></li>
+                    <!-- <li><a href="#testimonials">Testimonials</a></li> -->
+                    <!-- <li><a href="#cta" class="btn">Download</a></li> -->
+                </ul>
+
+                <!-- <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button> -->
+            </nav>
+
+            <div class="mobile-menu" id="mobileMenu">
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#value">Why UniFind</a></li>
+                    <li><a href="#team">Our Team</a></li>
+                    <!-- <li><a href="#testimonials">Testimonials</a></li> -->
+                    <li><a href="#cta" class="btn">Download</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>UniFind – Smart Lost &amp; Found for Students</h1>
+                    <p>
+                        Revolutionizing how UOB students report and recover
+                        lost items with AI-powered matching and real-time
+                        notifications.
+                    </p>
+                    <!-- <a href="#cta" class="btn"
+                        >Download the App <i class="fas fa-download"></i
+                    ></a> -->
+                </div>
+                <div class="hero-image">
+    <div class="hero-screens">
+        <img
+            src="images/home_crop.png"
+            alt="UniFind home screen"
+            class="app-screenshot primary"
+        />
+        <img
+            src="images/Potential_crop.png"
+            alt="UniFind potential matches screen"
+            class="app-screenshot secondary"
+        />
+        <img
+            src="images/chat_crop.png"
+            alt="UniFind chat screen"
+            class="app-screenshot tertiary"
+        />
+    </div>
+</div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>About the App</h2>
+                <p>
+                    UniFind simplifies lost and found processes with intelligent
+                    features designed for campus life.
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <h3>Report Items</h3>
+                    <p>
+                        Quickly report lost or found items with photos,
+                        descriptions, and location details.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI Matching</h3>
+                    <p>
+                        Our CLIP-based AI model analyzes images and descriptions to find
+                        potential matches.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Secure Chat</h3>
+                    <p>
+                        Communicate safely with other users to verify ownership
+                        and arrange pickup.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>Real-Time Alerts</h3>
+                    <p>
+                        Get instant notifications when a potential match is found
+                        for your items.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>
+                    Recover lost items in just a few simple steps with UniFind's
+                    intelligent platform.
+                </p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Report</h3>
+                        <p>
+                            Report a lost or found item by adding details, descriptions, photos, and location. 
+                            Our AI analyzes the information to find possible matches.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Match</h3>
+                        <p>
+                            Our AI compares your item with all reported items,
+                            considering both text and visual similarities.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Notify</h3>
+                        <p>
+                            When a potential match is found, matched posts owners receives
+                            real-time notifications with the match details.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Recover</h3>
+                        <p>
+                            Use the in-app chat to verify ownership and arrange
+                            pickup. Mark items as claimed when recovered.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why UniFind Section -->
+    <section class="value" id="value">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why UniFind?</h2>
+                <p>
+                    Designed specifically for UOB university campuses to address common
+                    student challenges.
+                </p>
+            </div>
+
+            <div class="value-points">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Faster Recovery</h3>
+                    <p>
+                        Cut recovery time from days to hours with AI-powered
+                        matching and instant notifications.
+                    </p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Stress-Free Experience</h3>
+                    <p>
+                        No more wandering around campus or checking multiple
+                        bulletin boards. Everything is in one app.
+                    </p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Safe Communication</h3>
+                    <p>
+                        In-app chat keeps personal contact information private
+                        until you're ready to share it.
+                    </p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI-Powered Accuracy</h3>
+                    <p>
+                        Our CLIP-based model understands both images and text
+                        descriptions for better matching accuracy.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team" id="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>Who We Are</h2>
+                <p>
+                    A dedicated student team from the University of Bahrain's
+                    College of Information Technology.
+                </p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="member-name">Zainab Jameel</h3>
+                    <p class="member-role">Lead Developer</p>
+                    <p>
+                        A Software Engineering student who co-led the development of UniFind, focusing on core functionality, app logic, and overall system flow.
+                    </p>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="member-name">Maryam Alshaikh</h3>
+                    <p class="member-role">Lead Developer</p>
+                    <p>
+                       A Computer Science student who co-led the development of UniFind, contributing to the app’s interface, user experience, and main feature implementation.
+                    </p>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="member-name">Dr. Abdulla Alqaddoumi</h3>
+                    <p class="member-role">Project Supervisor</p>
+                    <p>
+                        Providing guidance and expertise throughout the development
+                        process.
+                    </p>
+                </div>
+            </div>
+
+            <!-- <div class="section-title" style="margin-top: 80px">
+                <h2>University Project</h2>
+                <p>
+                    UniFind was developed as a senior project for ITCS499/ITSE498
+                    at the University of Bahrain, College of Information
+                    Technology, Department of Computer Science.
+                </p>
+            </div> -->
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <!-- <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Student Reactions</h2>
+                <p>See what students are saying about UniFind.</p>
+            </div>
+
+            <div class="testimonial-slider">
+                <div class="testimonial">
+                    <p class="testimonial-text">
+                        "I lost my calculator before finals and thought I'd have to
+                        buy a new one. UniFind matched it with a post in just 2
+                        hours! Got it back the same day."
+                    </p>
+                    <p class="testimonial-author">
+                        - Amal, Accounting Student
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- CTA Section -->
+    <!-- <section class="cta" id="cta">
+        <div class="container">
+            <h2>Ready to Simplify Campus Lost &amp; Found?</h2>
+            <p>
+                Join hundreds of students who have already recovered their lost
+                items with UniFind. Download the app today and experience the
+                difference.
+            </p>
+            <a href="#" class="btn"
+                >Download on the App Store <i class="fab fa-apple"></i
+            ></a>
+            <a href="#" class="btn" style="margin-left: 20px"
+                >Get it on Google Play <i class="fab fa-google-play"></i
+            ></a>
+        </div>
+    </section> -->
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <a href="#hero" class="footer-logo">
+                        <img src="images/logo side by side_2.png" alt="UniFind logo" class="logo-img" />
+                    </a>
+                    <p>
+                        Smart Lost &amp; Found for university students. Developed at
+                        the University of Bahrain.
+                    </p>
+                   <div class="social-links">
+    <!-- <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a> -->
+    <a href="#"><i class="fab fa-linkedin"></i></a>
+    <a href="https://github.com/ZainabJameel300/UniFind" target="_blank">
+        <i class="fab fa-github"></i>
+    </a>
+</div>
+
+                </div>
+
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#value">Why UniFind</a></li>
+                        <li><a href="#team">Our Team</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li>
+                            <a href="mailto:contact@unifind.app"
+                                ><i class="fas fa-envelope"></i>
+                                contact@unifind.app</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#"
+                                ><i class="fas fa-map-marker-alt"></i> University of
+                                Bahrain</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#"
+                                ><i class="fas fa-building"></i> College of
+                                Information Technology</a
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>
+                    &copy; 2025 UniFind. All rights reserved. A senior project by
+                    Zainab Jameel &amp; Maryam Alshaikh.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+        const mobileMenu = document.getElementById("mobileMenu");
+
+        mobileMenuBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("active");
+            mobileMenuBtn.innerHTML = mobileMenu.classList.contains("active")
+                ? '<i class="fas fa-times"></i>'
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking a link
+        const mobileLinks = mobileMenu.querySelectorAll("a");
+        mobileLinks.forEach((link) => {
+            link.addEventListener("click", () => {
+                mobileMenu.classList.remove("active");
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Header scroll effect
+        const header = document.getElementById("header");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 50) {
+                header.classList.add("scrolled");
+            } else {
+                header.classList.remove("scrolled");
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+            anchor.addEventListener("click", function (e) {
+                const targetId = this.getAttribute("href");
+                if (targetId === "#") return;
+
+                e.preventDefault();
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: "smooth",
+                    });
+                }
+            });
+        });
+
+        // Simple testimonial slider
+        // const testimonials = [
+        //     {
+        //         text:
+        //             "I lost my calculator before finals and thought I'd have to buy a new one. UniFind matched it with a post in just 2 hours! Got it back the same day.",
+        //         author: "- Amal, Accounting Student",
+        //     },
+        //     {
+        //         text:
+        //             "Found a smartwatch in the library and didn't know who to return it to. Posted it on UniFind and within an hour the owner contacted me through the app. So efficient!",
+        //         author: "- Faisal, Computer Science Student",
+        //     },
+        //     {
+        //         text:
+        //             "As a freshman, I didn't know where to look for my lost lab coat. UniFind showed me the security office location and matched it with a found post. Lifesaver!",
+        //         author: "- Yusuf, Nursing Student",
+        //     },
+        // ];
+
+        let currentTestimonial = 0;
+        const testimonialElement = document.querySelector(".testimonial");
+        const testimonialTextEl = testimonialElement.querySelector(
+            ".testimonial-text"
+        );
+        const testimonialAuthorEl = testimonialElement.querySelector(
+            ".testimonial-author"
+        );
+
+        function changeTestimonial() {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+
+            testimonialElement.style.opacity = 0;
+
+            setTimeout(() => {
+                testimonialTextEl.textContent =
+                    testimonials[currentTestimonial].text;
+                testimonialAuthorEl.textContent =
+                    testimonials[currentTestimonial].author;
+                testimonialElement.style.opacity = 1;
+            }, 400);
+        }
+
+        setInterval(changeTestimonial, 6000);
+    </script>
+</body>
+</html>
