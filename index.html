@@ -125,11 +125,203 @@
             text-align: center;
             margin-bottom: 60px;
         }
+        .abstract-text {
+            text-align: justify;
+            text-justify: inter-word;
+            line-height: 2.5;
+            margin: 0 auto;
+            max-width: 1050px;
+        } 
+
+        /* Reduce space after Abstract so it sits closer to next section */
+        .abstract {
+            padding-bottom: 0.1px;
+        }
 
         .section-title h2:after {
             left: 50%;
             transform: translateX(-50%);
         }
+/* Approach Section Layout */
+.approach {
+    background-color: var(--light-gray);
+}
+
+.approach-grid {
+    display: flex;
+    flex-direction: column;   /* stack cards vertically */
+    gap: 40px;
+    margin-top: 50px;
+}
+
+
+@media (max-width: 992px) {
+    .approach-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.approach-card {
+    background-color: var(--white);
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--medium-gray);
+    transition: var(--transition);
+}
+
+.approach-card h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Smaller diagram */
+.architecture-diagram {
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 14px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+}
+
+.model-digram{
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 14px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.tools-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 tools per row */
+    gap: 16px;
+}
+
+/* Mobile-friendly: stack on small screens */
+@media (max-width: 600px) {
+    .tools-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+.tool-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid var(--medium-gray);
+    background-color: var(--white);
+}
+
+.tool-icon {
+    font-size: 1.4rem;
+    color: var(--primary-purple);
+    min-width: 28px;
+}
+
+.tool-item h4 {
+    margin-bottom: 4px;
+    font-size: 1.05rem;
+    color: var(--text-dark);
+}
+
+.tool-item p {
+    margin-bottom: 0;
+    font-size: 0.95rem;
+}
+
+/* Image modal */
+.image-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.image-modal img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 20px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.image-modal.active {
+    display: flex;
+}
+
+/* Technologies – sketch style */
+.technologies {
+    background-color: var(--white);
+}
+
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    margin-top: 50px;
+    align-items: stretch; /* KEY: same height cards */
+}
+
+
+@media (max-width: 768px) {
+    .tech-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.tech-card {
+    background-color: var(--white);
+    border-radius: 24px;
+    padding: 30px 32px;
+    border: 1px solid var(--medium-gray);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column; /* allows inner control */
+}
+
+
+.tech-card h3 {
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+}
+
+/* Rows inside card */
+.tech-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.tech-row:last-child {
+    margin-bottom: 0;
+}
+
+.tech-row i {
+    font-size: 1.2rem;
+    color: var(--primary-purple);
+    min-width: 22px;
+}
+
+.tech-row span {
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+
+/* Cloud services rows in 2 columns */
+.tech-rows-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px 18px;
+}
+
 
         /* Header & Navigation */
         header {
@@ -755,6 +947,8 @@
             section {
                 padding: 60px 0;
             }
+
+            
         }
     </style>
 </head>
@@ -768,6 +962,8 @@
                 </a>
 
                 <ul class="nav-links">
+                    <li><a href="#abstract">Abstract</a></li>
+                    <li><a href="#objectives">Objectives</a></li>
                     <li><a href="#features">Features</a></li>
                     <li><a href="#how-it-works">How It Works</a></li>
                     <li><a href="#value">Why UniFind</a></li>
@@ -783,6 +979,8 @@
 
             <div class="mobile-menu" id="mobileMenu">
                 <ul>
+                    <li><a href="#abstract">Abstract</a></li>
+                    <li><a href="#objectives">Objectives</a></li>
                     <li><a href="#features">Features</a></li>
                     <li><a href="#how-it-works">How It Works</a></li>
                     <li><a href="#value">Why UniFind</a></li>
@@ -832,6 +1030,320 @@
             </div>
         </div>
     </section>
+
+     <section class="abstract" id="abstract">
+        <div class="container">
+            <div class="section-title">
+                <h2>Abstract</h2>
+                <p class="abstract-text">
+                  Losing items is a common issue on campus, yet the current ways of reporting and recovering them are slow, confusing, and mostly manual. To address these problems, this project introduces UniFind, which is a smart and easy to use mobile application created to streamline the lost and found processes at the University of Bahrain and to help students reclaim their items. One of its key features is an AI-powered matching engine that generates accurate item matches based on the details and image of the items. In addition, the app enables users to report items, browse and search posts, get real-time notifications to track potential matches, and to communicate together using an in-app chatting feature. All in all, UniFind provides a reliable, intelligent, and user-friendly solution that greatly improves the lost and found experience on campus.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Objectives Section -->
+<section class="how-it-works" id="objectives">
+    <div class="container">
+        <div class="section-title">
+            <h2>Project Objectives</h2>
+            <p>
+                The main goals of UniFind is to focus on improving the efficiency,
+                accuracy, and usability of campus lost and found systems.
+            </p>
+        </div>
+
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>User-Friendly Platform</h3>
+                    <p>
+                        To develop a mobile application that allows students
+                        to easily report, browse, and manage lost and found items.
+                    </p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>AI-Based Matching</h3>
+                    <p>
+                        To implement an AI-powered matching mechanism that
+                        compares images and descriptions to identify potential matches.
+                    </p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Efficient Communication</h3>
+                    <p>
+                        To enable secure in-app communication between users
+                        to verify ownership and arrange item recovery.
+                    </p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>System Evaluation</h3>
+                    <p>
+                        To analyze system limitations and propose future
+                        improvements for scalability and performance.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Approach Section -->
+<section class="approach" id="approach">
+    <div class="container">
+        <div class="section-title">
+            <h2>Our Approach</h2>
+            <p>
+                UniFind was built using a structured system design, collaborative tools,
+                and an iterative development methodology tailored for AI-driven systems.
+            </p>
+        </div>
+
+        <div class="approach-grid">
+            <!-- System Architecture -->
+            <div class="approach-card">
+                <h3>System Architecture</h3>
+                <p>
+                    The architecture shows how the mobile app, cloud backend,
+                    and AI matching service interact to support reporting,
+                    matching, notifications, and communication.
+                </p>
+                <img
+                    src="images/SAD.png"
+                    alt="UniFind System Architecture Diagram"
+                    class="architecture-diagram"
+                    id="openDiagram"
+                />
+            </div>
+
+            <!-- Tools Used -->
+            <div class="approach-card">
+                <h3>Tools Used</h3>
+
+                <div class="tools-list">
+                    <div class="tool-item">
+                        <i class="fab fa-github tool-icon"></i>
+                        <div>
+                            <h4>GitHub</h4>
+                            <p>Version control and collaborative source code management.</p>
+                        </div>
+                    </div>
+
+                    <div class="tool-item">
+                        <i class="fas fa-code tool-icon"></i>
+                        <div>
+                            <h4>Visual Studio Code</h4>
+                            <p>Used for Dart and Python development with GitHub integration.</p>
+                        </div>
+                    </div>
+
+                    <div class="tool-item">
+                        <i class="fas fa-mobile-alt tool-icon"></i>
+                        <div>
+                            <h4>Android Studio, Xcode & iOS Simulator</h4>
+                            <p>Cross-platform development and testing for Android and iOS.</p>
+                        </div>
+                    </div>
+
+                    <div class="tool-item">
+                        <i class="fab fa-figma tool-icon"></i>
+                        <div>
+                            <h4>Figma</h4>
+                            <p>UI wireframes, interactive prototypes, and personas.</p>
+                        </div>
+                    </div>
+
+                    <div class="tool-item">
+                        <i class="fas fa-chart-gantt tool-icon"></i>
+                        <div>
+                            <h4>Online Gantt</h4>
+                            <p>Project scheduling and timeline planning.</p>
+                        </div>
+                    </div>
+
+                    <div class="tool-item">
+                        <i class="fas fa-poll tool-icon"></i>
+                        <div>
+                            <h4>Google Forms</h4>
+                            <p>Requirement gathering and survey-based analysis.</p>
+                        </div>
+                    </div>
+
+                    <div class="tool-item">
+                        <i class="fas fa-project-diagram tool-icon"></i>
+                        <div>
+                            <h4>Lucidchart & Draw.io</h4>
+                            <p>Creation of ERDs, DFDs, and system flow diagrams.</p>
+                        </div>
+                    </div>
+
+                    <div class="tool-item">
+                        <i class="fas fa-tasks tool-icon"></i>
+                        <div>
+                            <h4>Notion</h4>
+                            <p>Task management, sprint planning, and progress tracking.</p>
+                        </div>
+                    </div>
+
+                    <div class="tool-item">
+                        <i class="fas fa-cloud tool-icon"></i>
+                        <div>
+                            <h4>OneDrive</h4>
+                            <p>Shared storage and document synchronization.</p>
+                        </div>
+                    </div>
+
+                    <div class="tool-item">
+                        <i class="fab fa-microsoft tool-icon"></i>
+                        <div>
+                            <h4>Microsoft Teams</h4>
+                            <p>Meetings, discussions, and team coordination.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Development Methodology -->
+            <div class="approach-card">
+                <h3>Development Methodology</h3>
+                <p>
+                    UniFind was developed using the <strong>Agile SDLC model</strong>,
+                    enabling continuous iteration, testing, and refinement
+                    throughout the project lifecycle.
+                </p>
+                <img
+    src="images/Agile Model.png"
+    alt="Agile SDLC Model"
+    class="model-digram"
+
+/>
+
+                <!-- <p>
+                    The work was divided into focused sprints, each targeting a
+                    specific feature such as AI matching, notifications, or
+                    in-app communication. This ensured early issue detection,
+                    steady progress, and adaptability—especially important
+                    for AI experimentation.
+                </p> -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Image Modal -->
+<div class="image-modal" id="imageModal">
+    <img src="images/SAD.png" alt="Expanded System Architecture Diagram">
+</div>
+
+
+
+
+<!-- Technologies Section -->
+<section class="technologies" id="technologies">
+    <div class="container">
+        <div class="section-title">
+            <h2>Technologies Used</h2>
+            <p>
+                UniFind integrates multiple technologies across development,
+                artificial intelligence, and cloud services to deliver a
+                scalable and intelligent lost and found system.
+            </p>
+        </div>
+
+        <div class="tech-grid">
+            <!-- Programming Languages -->
+            <div class="tech-card">
+    <h3>Programming Languages</h3>
+
+    <div class="tech-row">
+        <i class="fas fa-code"></i>
+        <span><strong>Dart</strong> – Flutter mobile development</span>
+    </div>
+
+    <div class="tech-row">
+        <i class="fab fa-python"></i>
+        <span><strong>Python</strong> – AI engine & backend API</span>
+    </div>
+</div>
+
+
+
+            <!-- Frameworks -->
+            <div class="tech-card">
+    <h3>Frameworks</h3>
+
+    <div class="tech-row">
+        <i class="fas fa-mobile-alt"></i>
+        <span><strong>Flutter</strong> – Cross-platform UI</span>
+    </div>
+
+    <div class="tech-row">
+        <i class="fas fa-server"></i>
+        <span><strong>Flask</strong> – API backend</span>
+    </div>
+</div>
+
+
+
+            <!-- AI / Machine Learning -->
+          <div class="tech-card">
+    <h3>AI / Machine Learning</h3>
+
+    <div class="tech-row">
+        <i class="fas fa-brain"></i>
+        <span><strong>CLIP Model</strong> – Image–text similarity</span>
+    </div>
+</div>
+
+
+
+
+            <!-- Cloud Services -->
+          <div class="tech-card">
+    <h3>Cloud Services</h3>
+
+    <div class="tech-rows-grid">
+        <div class="tech-row">
+            <i class="fas fa-cloud"></i>
+            <span><strong>Firebase</strong>–Cloud backend</span>
+        </div>
+
+        <div class="tech-row">
+            <i class="fas fa-database"></i>
+            <span><strong>Firestore</strong>–NoSQL database</span>
+        </div>
+
+        <div class="tech-row">
+            <i class="fas fa-user-shield"></i>
+            <span><strong>Authentication</strong>–Secure login</span>
+        </div>
+
+        <div class="tech-row">
+            <i class="fas fa-images"></i>
+            <span><strong>Storage</strong>–Media files</span>
+        </div>
+    </div>
+</div>
+
+
+
+        </div>
+    </div>
+</section>
+
 
     <!-- Features Section -->
     <section class="features" id="features">
@@ -1016,8 +1528,8 @@
             <div class="section-title">
                 <h2>Who We Are</h2>
                 <p>
-                    A dedicated student team from the University of Bahrain's
-                    College of Information Technology.
+                    
+                  This project is a Final Year Senior Project completed during Semester 1 of the Academic Year 2025/2026 at the College of Information Technology — University of Bahrain.
                 </p>
             </div>
 
@@ -1268,6 +1780,21 @@
         }
 
         setInterval(changeTestimonial, 6000);
+
     </script>
+    
+<script>
+    const openDiagram = document.getElementById("openDiagram");
+    const imageModal = document.getElementById("imageModal");
+
+    openDiagram.addEventListener("click", () => {
+        imageModal.classList.add("active");
+    });
+
+    imageModal.addEventListener("click", () => {
+        imageModal.classList.remove("active");
+    });
+</script>
+
 </body>
 </html>
