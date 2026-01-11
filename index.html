@@ -357,7 +357,7 @@
 /* App Carousel */
 .app-carousel {
     position: relative;
-    max-width: 300px;
+    max-width: 250px;
     margin: 50px auto 0;
     text-align: center;
 }
@@ -522,6 +522,45 @@
     color: var(--primary-purple);
     font-size: 1.2rem;
 }
+
+/* Demo & How It Works */
+.demo-how {
+    background-color: var(--light-gray);
+}
+
+/* Video wrapper */
+.demo-video-wrapper {
+    max-width: 900px;
+    margin: 0 auto 60px;
+    border-radius: 26px;
+    overflow: hidden;
+
+    /* NEW */
+    border: 3px solid rgba(119, 31, 152, 0.35);
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.12),
+        0 0 0 6px rgba(119, 31, 152, 0.06);
+
+    background-color: black;
+}
+
+
+.demo-video-wrapper video {
+    width: 100%;
+    display: block;
+    border-radius: 24px;
+}
+
+/* Divider between demo and steps */
+.demo-divider {
+    width: 120px;
+    height: 4px;
+    background-color: var(--primary-purple);
+    border-radius: 4px;
+    margin: 0 auto 60px;
+    opacity: 0.8;
+}
+
 
 
 
@@ -1201,8 +1240,8 @@
                     <li><a href="#abstract">Abstract</a></li>
                     <li><a href="#objectives">Objectives</a></li>
                     <li><a href="#results">Results</a></li>
-                    <li><a href="#how-it-works">How It Works</a></li>
-                    <li><a href="#value">Why UniFind</a></li>
+                    <li><a href="#how-it-works">Demo</a></li>
+                    <!-- <li><a href="#value">Why UniFind</a></li> -->
                     <li><a href="#team">Our Team</a></li>
                     <!-- <li><a href="#testimonials">Testimonials</a></li> -->
                     <!-- <li><a href="#cta" class="btn">Download</a></li> -->
@@ -1224,8 +1263,8 @@
                     <li><a href="#abstract">Abstract</a></li>
                     <li><a href="#objectives">Objectives</a></li>
                     <li><a href="#results">Results</a></li>
-                    <li><a href="#how-it-works">How It Works</a></li>
-                    <li><a href="#value">Why UniFind</a></li>
+                    <li><a href="#how-it-works">Demo</a></li>
+                    <!-- <li><a href="#value">Why UniFind</a></li> -->
                     <li><a href="#team">Our Team</a></li>
                     <!-- <li><a href="#testimonials">Testimonials</a></li> -->
                     
@@ -1746,67 +1785,82 @@
         </div>
     </section> -->
 
-    <!-- How It Works Section -->
-    <section class="how-it-works" id="how-it-works">
-        <div class="container">
-            <div class="section-title">
-                <h2>How It Works</h2>
-                <p>
-                    Recover lost items in just a few simple steps with UniFind's
-                    intelligent platform.
-                </p>
+   <!-- Demo & How It Works Section -->
+<section class="demo-how" id="how-it-works">
+    <div class="container">
+
+        <!-- Demo Title -->
+        <div class="section-title">
+            <h2>Demo & How It Works</h2>
+            <p>
+                A short demonstration of UniFind followed by a step-by-step overview
+                of how the system operates.
+            </p>
+        </div>
+
+        <!-- Demo Video -->
+        <div class="demo-video-wrapper">
+            <video controls>
+                <source src="images/English-Elevator-UniFind.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <!-- Divider -->
+        <div class="demo-divider"></div>
+
+        <!-- How It Works Steps -->
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Report</h3>
+                    <p>
+                        Report a lost or found item by adding details, descriptions,
+                        photos, and location. The AI analyzes the information to
+                        identify possible matches.
+                    </p>
+                </div>
             </div>
 
-            <div class="steps-container">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>Report</h3>
-                        <p>
-                            Report a lost or found item by adding details, descriptions, photos, and location. 
-                            Our AI analyzes the information to find possible matches.
-                        </p>
-                    </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Match</h3>
+                    <p>
+                        The AI engine compares items using both visual and textual
+                        similarity to generate accurate match suggestions.
+                    </p>
                 </div>
+            </div>
 
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>Match</h3>
-                        <p>
-                            Our AI compares your item with all reported items,
-                            considering both text and visual similarities.
-                        </p>
-                    </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Notify</h3>
+                    <p>
+                        When a potential match is found, users receive real-time
+                        notifications with relevant match details.
+                    </p>
                 </div>
+            </div>
 
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>Notify</h3>
-                        <p>
-                            When a potential match is found, matched posts owners receives
-                            real-time notifications with the match details.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h3>Recover</h3>
-                        <p>
-                            Use the in-app chat to verify ownership and arrange
-                            pickup. Mark items as claimed when recovered.
-                        </p>
-                    </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Recover</h3>
+                    <p>
+                        Users communicate through the in-app chat to verify ownership
+                        and arrange item recovery securely.
+                    </p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Why UniFind Section -->
-    <section class="value" id="value">
+    <!-- <section class="value" id="value">
         <div class="container">
             <div class="section-title">
                 <h2>Why UniFind?</h2>
@@ -1862,7 +1916,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Team Section -->
     <section class="team" id="team">
@@ -1989,10 +2043,14 @@
                 <div class="footer-links">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#how-it-works">How It Works</a></li>
-                        <li><a href="#value">Why UniFind</a></li>
-                        <li><a href="#team">Our Team</a></li>
+                         <li><a href="#abstract">Abstract</a></li>
+                    <li><a href="#objectives">Objectives</a></li>
+                    <li><a href="#results">Results</a></li>
+                    <li><a href="#how-it-works">Demo</a></li>
+                    <!-- <li><a href="#value">Why UniFind</a></li> -->
+                    <li><a href="#team">Our Team</a></li>
+                    <!-- <li><a href="#testimonials">Testimonials</a></li> -->
+                    <!-- <li><a href="#cta" class="btn">Download</a></li> -->
                     </ul>
                 </div>
 
