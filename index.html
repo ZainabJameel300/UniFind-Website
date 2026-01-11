@@ -346,7 +346,7 @@
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            gap: 24px; 
+            gap: 16px; 
             padding-left: 30px;
         }
 
@@ -416,7 +416,15 @@
             color: var(--primary-purple);
             cursor: pointer;
         }
+.mobile-menu-btn {
+    display: none;
+}
 
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block;
+    }
+}
         /* *** FIX: base mobile-menu styles (hidden on desktop) *** */
         .mobile-menu {
             display: none;
@@ -497,31 +505,30 @@
 
 
         /* responsive tweak for smaller screens */
-        @media (max-width: 992px) {
-            .hero-screens {
-                gap: 25px;
-            }
+       @media (max-width: 768px) {
+    .hero-content {
+        flex-direction: column;
+        gap: 40px;
+    }
 
-            .app-screenshot {
-                width: 170px; /* decreased from 220px */
-            }
-        }
+    .hero-screens {
+        flex-direction: row;        /* KEEP THEM SIDE BY SIDE */
+        gap: 12px;                  /* tighter spacing */
+        justify-content: center;
+    }
 
-        @media (max-width: 768px) {
-            .hero-content {
-                flex-direction: column;
-                gap: 40px;
-            }
+    .app-screenshot {
+        width: 95px;                /* small enough for mobile */
+        border-radius: 14px;
+    }
+}
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;   /* hide normal tabs on mobile */
+    }
+}
 
-            .hero-screens {
-                flex-direction: column;
-                gap: 30px;
-            }
 
-            .app-screenshot {
-                width: 190px; /* decreased from 240px */
-            }
-        }
 
 
         /* Features Section */
@@ -890,66 +897,86 @@
             }
         }
 
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
+       @media (max-width: 768px) {
 
-            .mobile-menu-btn {
-                display: block;
-            }
+    .mobile-menu {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 260px;
+        height: 100vh;
+        background-color: white;
+        padding: 100px 24px 24px;
+        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+        transform: translateX(-100%);
+        transition: var(--transition);
+        z-index: 1500;
+    }
 
-            .mobile-menu {
-                display: block;
-                position: fixed;
-                top: 80px;
-                left: 0;
-                width: 100%;
-                background-color: white;
-                padding: 20px;
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-                z-index: 999;
-                transform: translateY(-100%);
-                opacity: 0;
-                transition: var(--transition);
-            }
+    .mobile-menu.active {
+        transform: translateX(0);
+    }
 
-            .mobile-menu.active {
-                transform: translateY(0);
-                opacity: 1;
-            }
+    .mobile-menu ul {
+        list-style: none;
+    }
 
-            .mobile-menu ul {
-                list-style: none;
-            }
+    .mobile-menu li {
+        margin-bottom: 22px;
+    }
 
-            .mobile-menu li {
-                margin-bottom: 20px;
-            }
+    .mobile-menu a {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        text-decoration: none;
+    }
+    .mobile-menu ul {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
 
-            .mobile-menu a {
-                text-decoration: none;
-                color: var(--text-dark);
-                font-weight: 600;
-                font-size: 1.2rem;
-                display: block;
-                padding: 10px 0;
-            }
+    .mobile-menu li {
+        margin: 0;
+    }
 
-            h1 {
-                font-size: 2.3rem;
-            }
+    .mobile-menu a {
+        display: block;
+        width: 100%; 
+        padding: 14px 18px;
+        border-radius: 14px;
+        background-color: #f1f3f5; 
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+        transition: var(--transition);
+    }
 
-            h2 {
-                font-size: 1.8rem;
-            }
+    .mobile-menu a:hover {
+        background-color: rgba(119, 31, 152, 0.08);
+    color: var(--primary-purple);
+    transform: translateX(6px);
+    }
 
-            section {
-                padding: 60px 0;
-            }
+    .drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--medium-gray);
+}
 
-            
-        }
+.drawer-logo {
+    height: 36px;     /* small, elegant */
+    width: auto;
+}
+
+}
+
     </style>
 </head>
 <body>
@@ -957,6 +984,9 @@
     <header id="header">
         <div class="container">
             <nav class="navbar">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
                 <a href="#hero" class="logo">
                     <img src="images/logo side by side_2.png" alt="UniFind logo" class="logo-img" />
                 </a>
@@ -972,12 +1002,18 @@
                     <!-- <li><a href="#cta" class="btn">Download</a></li> -->
                 </ul>
 
-                <!-- <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button> -->
+                
             </nav>
 
             <div class="mobile-menu" id="mobileMenu">
+                <div class="drawer-header">
+    <img
+        src="images/logo side by side_2.png"
+        alt="UniFind logo"
+        class="drawer-logo"
+    />
+</div>
+
                 <ul>
                     <li><a href="#abstract">Abstract</a></li>
                     <li><a href="#objectives">Objectives</a></li>
@@ -986,7 +1022,7 @@
                     <li><a href="#value">Why UniFind</a></li>
                     <li><a href="#team">Our Team</a></li>
                     <!-- <li><a href="#testimonials">Testimonials</a></li> -->
-                    <li><a href="#cta" class="btn">Download</a></li>
+                    
                 </ul>
             </div>
         </div>
