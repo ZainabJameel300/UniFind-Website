@@ -532,7 +532,7 @@
 .demo-video-wrapper {
     max-width: 900px;
     margin: 0 auto 60px;
-    border-radius: 26px;
+    border-radius: 20px;
     overflow: hidden;
 
     /* NEW */
@@ -548,7 +548,7 @@
 .demo-video-wrapper video {
     width: 100%;
     display: block;
-    border-radius: 24px;
+    border-radius: 20px;
 }
 
 /* Divider between demo and steps */
@@ -560,6 +560,275 @@
     margin: 0 auto 60px;
     opacity: 0.8;
 }
+/* Demo block title (for each video) */
+.demo-block-title {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.demo-block-title h3 {
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+}
+
+.demo-block-title h3::after {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 3px;
+    background-color: var(--primary-purple);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+.demo-block-title p {
+    max-width: 650px;
+    margin: 14px auto 0;
+    font-size: 1.05rem;
+    color: var(--dark-gray);
+}
+
+/* Conclusion & Future Work */
+.conclusion {
+    background: linear-gradient(
+        135deg,
+        rgba(119, 31, 152, 0.05),
+        rgba(119, 31, 152, 0.02)
+    );
+}
+
+.conclusion-summary {
+    max-width: 850px;
+    margin: 0 auto 70px;
+    text-align: center;
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: var(--dark-gray);
+}
+
+/* Future work grid */
+.future-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 28px;
+}
+
+.future-card {
+    background-color: var(--white);
+    border-radius: 22px;
+    padding: 28px 24px;
+    text-align: center;
+    border: 1px solid var(--medium-gray);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    position: relative;
+}
+
+.future-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--primary-purple);
+}
+
+.future-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    background-color: rgba(119, 31, 152, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    color: var(--primary-purple);
+    font-size: 1.6rem;
+}
+
+.future-card h4 {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    color: var(--text-dark);
+}
+
+.future-card p {
+    font-size: 1rem;
+    color: var(--dark-gray);
+    margin-bottom: 0;
+}
+
+/* Subsection titles inside sections */
+.subsection-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.subsection-title h3 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+.subsection-title p {
+    font-size: 1.05rem;
+    color: var(--dark-gray);
+}
+
+/* Future Work Roadmap */
+.future-roadmap {
+    background-color: #eaf6fd;
+    border-radius: 32px;
+    padding: 60px 40px;
+}
+
+.roadmap-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.roadmap-item {
+    text-align: center;
+    flex: 1;
+    position: relative;
+}
+
+.roadmap-item i {
+    font-size: 2rem;
+    color: white;
+    background-color: #0074cc;
+    width: 70px;
+    height: 70px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+}
+
+.roadmap-item span {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #0a2a66;
+}
+
+/* Connector between rows */
+.roadmap-connector {
+    height: 2px;
+    background-color: #0074cc;
+    margin: 40px 0;
+    position: relative;
+}
+
+/* Vertical connectors */
+.roadmap-row.top .roadmap-item::after {
+    content: "";
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    width: 2px;
+    height: 40px;
+    background-color: #0074cc;
+    transform: translateX(-50%);
+}
+/* Future Work Roadmap – UniFind Theme */
+.future-roadmap {
+    background: linear-gradient(
+        135deg,
+        rgba(119, 31, 152, 0.06),
+        rgba(119, 31, 152, 0.02)
+    );
+    border-radius: 32px;
+    padding: 70px 40px;
+    border: 1px solid rgba(119, 31, 152, 0.12);
+}
+
+/* Roadmap items */
+.roadmap-item i {
+    font-size: 2rem;
+    color: white;
+    background: linear-gradient(
+        135deg,
+        var(--primary-purple),
+        var(--dark-purple)
+    );
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    box-shadow: 0 10px 24px rgba(119, 31, 152, 0.35);
+}
+
+/* Labels */
+.roadmap-item span {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+/* Horizontal connector */
+.roadmap-connector {
+    height: 2px;
+    background: linear-gradient(
+        to right,
+        rgba(119, 31, 152, 0.2),
+        rgba(119, 31, 152, 0.6),
+        rgba(119, 31, 152, 0.2)
+    );
+    margin: 44px 0;
+}
+/* Vertical connectors for bottom row */
+.roadmap-row.bottom .roadmap-item::before {
+    content: "";
+    position: absolute;
+    top: -44px;
+    left: 50%;
+    width: 2px;
+    height: 44px;
+    background-color: rgba(119, 31, 152, 0.45);
+    transform: translateX(-50%);
+}
+
+
+/* Vertical connectors */
+.roadmap-row.top .roadmap-item::after {
+    content: "";
+    position: absolute;
+    bottom: -44px;
+    left: 50%;
+    width: 2px;
+    height: 44px;
+    background-color: rgba(119, 31, 152, 0.45);
+    transform: translateX(-50%);
+}
+
+@media (max-width: 768px) {
+    .roadmap-row {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .roadmap-row.top .roadmap-item::after {
+        display: none;
+    }
+
+    .roadmap-connector {
+        display: none;
+    }
+    @media (max-width: 768px) {
+    .roadmap-row.bottom .roadmap-item::before {
+        display: none;
+    }
+}
+
+}
+
+
 
 
 
@@ -1241,6 +1510,7 @@
                     <li><a href="#objectives">Objectives</a></li>
                     <li><a href="#results">Results</a></li>
                     <li><a href="#how-it-works">Demo</a></li>
+                    <li><a href="#conclusion">Conclusion</a></li>
                     <!-- <li><a href="#value">Why UniFind</a></li> -->
                     <li><a href="#team">Our Team</a></li>
                     <!-- <li><a href="#testimonials">Testimonials</a></li> -->
@@ -1264,6 +1534,7 @@
                     <li><a href="#objectives">Objectives</a></li>
                     <li><a href="#results">Results</a></li>
                     <li><a href="#how-it-works">Demo</a></li>
+                    <li><a href="#conclusion">Conclusion</a></li>
                     <!-- <li><a href="#value">Why UniFind</a></li> -->
                     <li><a href="#team">Our Team</a></li>
                     <!-- <li><a href="#testimonials">Testimonials</a></li> -->
@@ -1797,6 +2068,15 @@
                 of how the system operates.
             </p>
         </div>
+        <!-- Elevator Pitch Title -->
+<div class="demo-block-title">
+    <h3>Elevator Pitch Video</h3>
+    <p>
+        A concise overview explaining the problem, motivation, and core idea
+        behind UniFind.
+    </p>
+</div>
+
 
         <!-- Demo Video -->
         <div class="demo-video-wrapper">
@@ -1917,6 +2197,88 @@
             </div>
         </div>
     </section> -->
+
+    <!-- Conclusion & Future Work Section -->
+<section class="conclusion" id="conclusion">
+    <div class="container">
+        <div class="section-title">
+            <h2>Conclusion & Future Work</h2>
+            <p>
+                A summary of what UniFind achieves today and how it can grow in the future.
+            </p>
+        </div>
+
+        <!-- Conclusion Summary -->
+        <!-- Conclusion Subtitle -->
+<div class="subsection-title">
+    <h3>Conclusion</h3>
+    <p>Summary of system outcomes and overall project impact.</p>
+</div>
+
+<p class="conclusion-summary">
+    UniFind successfully demonstrates how artificial intelligence can be applied
+    to solve a common campus problem in an efficient and user-friendly way.
+    By combining AI-based matching, real-time notifications, and secure communication,
+    the system significantly improves the lost and found experience for students.
+    The results confirm that UniFind is both functional and scalable, providing a
+    strong foundation for future expansion beyond its initial deployment.
+</p>
+
+<!-- Future Work Subtitle -->
+<div class="subsection-title">
+    <h3>Future Work</h3>
+    <p>Planned enhancements and scalability opportunities for UniFind.</p>
+</div>
+
+
+        <!-- Future Work -->
+       <!-- Future Work Roadmap -->
+<div class="future-roadmap">
+
+    <!-- Top Row -->
+    <div class="roadmap-row top">
+        <div class="roadmap-item">
+            <i class="fas fa-globe"></i>
+            <span>Website Interface</span>
+        </div>
+
+        <div class="roadmap-item">
+            <i class="fas fa-brain"></i>
+            <span>AI Model Enhancement</span>
+        </div>
+
+        <div class="roadmap-item">
+            <i class="fas fa-thumbs-up"></i>
+            <span>Feedback Learning</span>
+        </div>
+    </div>
+
+    <!-- Connector Line -->
+    <div class="roadmap-connector"></div>
+
+    <!-- Bottom Row -->
+    <div class="roadmap-row bottom">
+        <div class="roadmap-item">
+            <i class="fas fa-language"></i>
+            <span>Arabic Language Support</span>
+        </div>
+
+        <div class="roadmap-item">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>Maps Integration</span>
+        </div>
+
+        <div class="roadmap-item">
+            <i class="fas fa-qrcode"></i>
+            <span>QR Code System</span>
+        </div>
+    </div>
+
+</div>
+
+    </div>
+</section>
+
 
     <!-- Team Section -->
     <section class="team" id="team">
@@ -2047,6 +2409,7 @@
                     <li><a href="#objectives">Objectives</a></li>
                     <li><a href="#results">Results</a></li>
                     <li><a href="#how-it-works">Demo</a></li>
+                    <li><a href="#conclusion">Conclusion</a></li>
                     <!-- <li><a href="#value">Why UniFind</a></li> -->
                     <li><a href="#team">Our Team</a></li>
                     <!-- <li><a href="#testimonials">Testimonials</a></li> -->
